@@ -6,7 +6,10 @@ package frc.robot;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.commands.Drive;
 import frc.robot.commands.LLDriverCamera;
+import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.LimeLight;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.LLDriverCamera;
@@ -23,6 +26,9 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final LimeLight limeLight = new LimeLight();
   private XboxController joy;
+  private DriveTrain m_driveTrainSub;
+  private Drive m_driveCmd;
+
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -30,6 +36,7 @@ public class RobotContainer {
     // Configure the button bindings
     joy = new XboxController(0);
     configureButtonBindings();
+    setupDriveTrain();
   }
 
   /**
@@ -44,6 +51,12 @@ public class RobotContainer {
 
     JoystickButton bR = new JoystickButton(joy,XboxController.Button.kX.value);
       bR.whileHeld(new LLVisionCamera(limeLight));
+  }
+  
+  private void setupDriveTrain() {
+    m_driveTrainSub = new DriveTrain();
+    m_driveCmd = new Drive(m_driveTrainSub,joy);
+    m_driveTrainSub.setDefaultCommand(m_driveCmd);
   }
 
   /**
