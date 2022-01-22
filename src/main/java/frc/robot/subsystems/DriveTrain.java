@@ -14,7 +14,16 @@ public class DriveTrain extends SubsystemBase {
         BackRight  = new CANSparkMax(Constants.BackRight,MotorType.kBrushless);
         FrontLeft  = new CANSparkMax(Constants.FrontLeft,MotorType.kBrushless);
         FrontRight = new CANSparkMax(Constants.FrontRight,MotorType.kBrushless);
+
+//        FrontRight.setInverted(false);
+//        BackRight.setInverted(false);
+
+        FrontLeft.setInverted(true);
+        BackLeft.setInverted(true);
         Mecanum    = new MecanumDrive(FrontLeft,BackLeft,FrontRight,BackRight);
+
+
+        Mecanum.setMaxOutput(Constants.MaxSpeed);
     }
     public void DriveCartesian(double ySpeed,double xSpeed,double zRotation)
     {
