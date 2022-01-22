@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import frc.robot.commands.Auto;
 import frc.robot.commands.Drive;
 import frc.robot.commands.LLDriverCamera;
 import frc.robot.subsystems.DriveTrain;
@@ -28,6 +29,7 @@ public class RobotContainer {
   private XboxController joy;
   private DriveTrain m_driveTrainSub;
   private Drive m_driveCmd;
+  private Auto Autonomous;
 
 
 
@@ -66,6 +68,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null;
+    return Autonomous.withTimeout(3);
   }
 }
