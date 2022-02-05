@@ -22,14 +22,12 @@ public class DriveTrain extends SubsystemBase {
         BackLeft.setInverted(true);
         Mecanum    = new MecanumDrive(FrontLeft,BackLeft,FrontRight,BackRight);
 
-
         Mecanum.setMaxOutput(Constants.MaxSpeed);
     }
     public void DriveCartesian(double ySpeed,double xSpeed,double zRotation)
     {
         Mecanum.driveCartesian(ySpeed, xSpeed, zRotation);
     }
-    
     public void StopMotor()
     {
         Mecanum.stopMotor();

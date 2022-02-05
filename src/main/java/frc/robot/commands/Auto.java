@@ -7,23 +7,28 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 
 public class Auto extends CommandBase {
     private DriveTrain driveTrain;
-    private XboxController jstick;
-
+    double x,y,z;
     public Auto(DriveTrain dt) {
         driveTrain = dt;
         this.setSubsystem("DriveTrain");
         this.addRequirements(dt);
+        x=-0.5;
+        y=0;
+        z=0;
     }
     public void execute() {
 
-        double x=-1;
-        double y=0;
-        double z=0;
-
         driveTrain.DriveCartesian(x,y,z);
-        
     }
+
     public void end(boolean interupted) {
         driveTrain.StopMotor();
+
+        if(interupted)
+        {
+            x=-x;
+            return;
+        }
+
     }
 }

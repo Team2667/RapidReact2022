@@ -35,7 +35,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    // Configure the button bindings
+    // Configure the button bindings'
     joy = new XboxController(0);
     configureButtonBindings();
     setupDriveTrain();
@@ -67,7 +67,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
-    return Autonomous.withTimeout(3);
+    // An ExampleCommand will run in autonomous0
+    return new Auto(m_driveTrainSub).withTimeout(Constants.autotime);
   }
 }

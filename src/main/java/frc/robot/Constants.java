@@ -17,6 +17,8 @@ public final class Constants {
     public static int BackRight=4;
     public static int FrontLeft=1;
     public static int FrontRight=2;
-    public static double MaxSpeed=0.1;
+
+    public static double MaxSpeed=0.2;
+    public static int autotime=1;
 
 }
