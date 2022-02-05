@@ -11,17 +11,16 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.PWMSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class DriveTrain2 extends SubsystemBase {
 public static final double kMaxSpeed = 3.0; // 3 meters per second
   public static final double kMaxAngularSpeed = Math.PI; // 1/2 rotation per second
 
-
-  // TODO: Replace Can Ids with constants
-  private final MotorController m_frontLeftMotor = new PWMSparkMax(1);
-  private final MotorController m_frontRightMotor = new PWMSparkMax(2);
-  private final MotorController m_backLeftMotor = new PWMSparkMax(3);
-  private final MotorController m_backRightMotor = new PWMSparkMax(4);
+  private final MotorController m_frontLeftMotor = new PWMSparkMax(Constants.FrontLeft);
+  private final MotorController m_frontRightMotor = new PWMSparkMax(Constants.FrontRight);
+  private final MotorController m_backLeftMotor = new PWMSparkMax(Constants.BackLeft);
+  private final MotorController m_backRightMotor = new PWMSparkMax(Constants.BackRight);
 
   private final Encoder m_frontLeftEncoder = new Encoder(0, 1);
   private final Encoder m_frontRightEncoder = new Encoder(2, 3);
