@@ -25,8 +25,7 @@ public class Drive extends CommandBase {
         double y=jstick.getRightX();
         double z=jstick.getLeftX();
 
-        driveTrain.DriveCartesian(x,y,z);
-        
+        driveTrain.DriveCartesian(x,y,z);        
     }
     public void end(boolean interupted) {
         driveTrain.StopMotor();

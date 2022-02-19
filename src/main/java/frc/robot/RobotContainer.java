@@ -9,12 +9,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Auto;
 import frc.robot.commands.Drive;
+import frc.robot.commands.IntakeExtender;
 import frc.robot.commands.LLDriverCamera;
+import frc.robot.subsystems.Belts;
 import frc.robot.subsystems.DriveTrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.LLDriverCamera;
 import frc.robot.commands.LLVisionCamera;
+import frc.robot.commands.MoveBall;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -30,6 +34,8 @@ public class RobotContainer {
   private DriveTrain m_driveTrainSub;
   private Drive m_driveCmd;
   private Auto Autonomous;
+  private Intake intake_sub;
+  private Belts belts_sub;
 
 
 
@@ -37,10 +43,15 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings'
     joy = new XboxController(0);
+    InitSubs();
     configureButtonBindings();
     setupDriveTrain();
   }
 
+  public void InitSubs(){
+    intake_sub=new Intake();
+    belts_sub=new Belts();
+  }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
@@ -53,6 +64,13 @@ public class RobotContainer {
 
     JoystickButton bR = new JoystickButton(joy,XboxController.Button.kX.value);
       bR.whileHeld(new LLVisionCamera(limeLight));
+
+    IntakeExtender intake_ext=new IntakeExtender(intake_sub);
+    JoystickButton bY=new JoystickButton(joy, XboxController.Button.kY.value);
+    bY.whenPressed(intake_ext);
+    MoveBall moveball=new MoveBall(joy, belts_sub);
+    belts_sub.setDefaultCommand(moveball);
+
   }
   
   private void setupDriveTrain() {
