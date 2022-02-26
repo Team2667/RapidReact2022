@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.revrobotics.CANEncoder;
@@ -66,6 +67,9 @@ public class Belts extends SubsystemBase {
         //encoder.getVelocity()
         //encoder.getPosition()
         //beltMotor.getOutputCurrent();
+        SmartDashboard.putNumber("velocity", encoder.getVelocity());
+        SmartDashboard.putNumber("position", encoder.getPosition());
+        SmartDashboard.putNumber("current draw", beltMotor.getOutputCurrent());
         super.periodic();
     }
 }
