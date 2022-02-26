@@ -5,12 +5,15 @@
 package frc.robot;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Auto;
+import frc.robot.commands.BallGrabberCommand;
 import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeExtender;
 import frc.robot.commands.LLDriverCamera;
+import frc.robot.subsystems.BallGrabber;
 import frc.robot.subsystems.Belts;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -36,6 +39,9 @@ public class RobotContainer {
   private Auto Autonomous;
   private Intake intake_sub;
   private Belts belts_sub;
+
+  private BallGrabber ballGrabberSub;
+  private BallGrabberCommand ballGrabberCommand;
 
 
 
@@ -71,6 +77,11 @@ public class RobotContainer {
     MoveBall moveball=new MoveBall(joy, belts_sub);
     belts_sub.setDefaultCommand(moveball);
 
+    ballGrabberSub=new BallGrabber();
+    ballGrabberCommand=new BallGrabberCommand(ballGrabberSub);
+
+    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
+    bX.whenPressed(ballGrabberCommand, false);
   }
   
   private void setupDriveTrain() {
