@@ -5,27 +5,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsControlModule;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Intake extends SubsystemBase {
-    DoubleSolenoid solLeft;
-    DoubleSolenoid solRight;
+    Solenoid solLeft;
+    Solenoid solRight;
 
     public Intake(){
-        solRight=new DoubleSolenoid(Constants.pcm, PneumaticsModuleType.REVPH, 0, 1);
-        solLeft=new DoubleSolenoid(Constants.pcm, PneumaticsModuleType.REVPH, 2, 3);
-    }
+        solLeft=new Solenoid(Constants.pcm,PneumaticsModuleType.CTREPCM, 0);
+        solRight=new Solenoid(Constants.pcm,PneumaticsModuleType.CTREPCM, 1);
+        }
 
     public void toggle(){
-    
-            if (solRight.get() == Value.kForward) {
-                solRight.set(Value.kReverse);
-                solLeft.set(Value.kReverse);
-            }
-            else {
-                solLeft.set(Value.kForward);
-                solRight.set(Value.kForward);
-            }
+            boolean oldVal=solRight.get();
+            solRight.set(!oldVal);
+            solLeft.set(!oldVal);
     }
 
     public void close() {
