@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Auto;
 import frc.robot.commands.BallGrabberCommand;
+import frc.robot.commands.BeltAtVelocity;
 import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeExtender;
 import frc.robot.commands.LLDriverCamera;
@@ -42,6 +43,7 @@ public class RobotContainer {
 
   private BallGrabber ballGrabberSub;
   private BallGrabberCommand ballGrabberCommand;
+  private BeltAtVelocity beltVel;
 
 
 
@@ -50,6 +52,7 @@ public class RobotContainer {
     // Configure the button bindings'
     joy = new XboxController(0);
     InitSubs();
+    InitCommands();
     configureButtonBindings();
     setupDriveTrain();
   }
@@ -57,6 +60,10 @@ public class RobotContainer {
   public void InitSubs(){
     intake_sub=new Intake();
     belts_sub=new Belts();
+  }
+  public void InitCommands()
+  {
+    beltVel=new BeltAtVelocity(belts_sub);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -82,6 +89,9 @@ public class RobotContainer {
 
     JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
     bX.whenPressed(ballGrabberCommand, false);
+
+    JoystickButton bB=new JoystickButton(joy, XboxController.Button.kB.value);
+    bB.whenPressed(beltVel, false);
   }
   
   private void setupDriveTrain() {
