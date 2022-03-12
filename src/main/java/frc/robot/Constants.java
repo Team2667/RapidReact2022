@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
+import edu.wpi.first.wpilibj.XboxController; //for button bindings
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -28,5 +29,10 @@ public final class Constants {
     public static final double beltSpeedToggle = 1;
 
     public static int autotime=1;
+
+    /* button bindings */
+    public static final int intakeExtender = XboxController.Button.kY.value;
+    public static final int beltWithGrabber = XboxController.Button.kRightStick.value;
+
 
 }
