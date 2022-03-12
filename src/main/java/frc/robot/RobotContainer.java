@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.LLDriverCamera;
 import frc.robot.commands.LLVisionCamera;
 import frc.robot.commands.MoveBall;
+import frc.robot.commands.toggleBeltAndGrabber;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -42,6 +43,7 @@ public class RobotContainer {
 
   private BallGrabber ballGrabberSub;
   private BallGrabberCommand ballGrabberCommand;
+  private toggleBeltAndGrabber beltwgrabber;
 
 
 
@@ -50,6 +52,7 @@ public class RobotContainer {
     // Configure the button bindings'
     joy = new XboxController(0);
     InitSubs();
+    InitCommands();
     configureButtonBindings();
     setupDriveTrain();
   }
@@ -57,6 +60,12 @@ public class RobotContainer {
   public void InitSubs(){
     intake_sub=new Intake();
     belts_sub=new Belts();
+    ballGrabberSub=new BallGrabber();
+  }
+  public void InitCommands()
+  {
+    ballGrabberCommand=new BallGrabberCommand(ballGrabberSub);
+    beltwgrabber=new toggleBeltAndGrabber(ballGrabberSub, belts_sub);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -74,14 +83,15 @@ public class RobotContainer {
     IntakeExtender intake_ext=new IntakeExtender(intake_sub);
     JoystickButton bY=new JoystickButton(joy, XboxController.Button.kY.value);
     bY.whenPressed(intake_ext);
+
     MoveBall moveball=new MoveBall(joy, belts_sub);
     belts_sub.setDefaultCommand(moveball);
 
-    ballGrabberSub=new BallGrabber();
-    ballGrabberCommand=new BallGrabberCommand(ballGrabberSub);
+    JoystickButton bB=new JoystickButton(joy, XboxController.Button.kB.value);
+    bB.whenPressed(beltwgrabber, false);
 
-    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
-    bX.whenPressed(ballGrabberCommand, false);
+//    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
+//    bX.whenPressed(ballGrabberCommand.alongWith(parallel), false);
   }
   
   private void setupDriveTrain() {

@@ -22,9 +22,10 @@ public final class Constants {
     public static final int BallGrabber=6;
     public static int pcm=11;
 
-    public static double MaxMotorSpeed=0.75;
+    public static double MaxMotorSpeed=0.65;
     public static final double MaxBeltSpeed=1;
     public static final double GrabberSpeed=1;
+    public static final double beltSpeedToggle = 1;
 
     public static int autotime=1;
 

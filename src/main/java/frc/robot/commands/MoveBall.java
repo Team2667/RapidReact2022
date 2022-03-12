@@ -18,13 +18,15 @@ public class MoveBall extends CommandBase {
     {
         double leftTrig=joy.getLeftTriggerAxis();
         double rightTrig=joy.getRightTriggerAxis();
-        System.out.println("right: "+rightTrig+"\nleft: "+leftTrig);
+    //    System.out.println("right: "+rightTrig+"\nleft: "+leftTrig);
         return (rightTrig >0 ? rightTrig : -leftTrig)*Constants.MaxBeltSpeed;
     }
 
     @Override
     public void execute()
     {
+        if(belts_sub.mutex)
+            return;
         double speed=getTriggerVal();
         belts_sub.setBeltSpeed(speed);
     }
