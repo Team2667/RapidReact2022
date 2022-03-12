@@ -30,9 +30,11 @@ public final class Constants {
 
     public static int autotime=1;
 
+    public static int camServoChannel=9;
+
     /* button bindings */
     public static final int intakeExtender = XboxController.Button.kY.value;
     public static final int beltWithGrabber = XboxController.Button.kRightStick.value;
-
+    public static final int changeCameraAngle = XboxController.Button.kLeftStick.value;
 
 }

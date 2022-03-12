@@ -10,11 +10,13 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Auto;
 import frc.robot.commands.BallGrabberCommand;
+import frc.robot.commands.CameraAngle;
 import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeExtender;
 import frc.robot.commands.LLDriverCamera;
 import frc.robot.subsystems.BallGrabber;
 import frc.robot.subsystems.Belts;
+import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimeLight;
@@ -45,6 +47,8 @@ public class RobotContainer {
   private BallGrabberCommand ballGrabberCommand;
   private toggleBeltAndGrabber beltwgrabber;
   IntakeExtender intake_ext;
+  CameraServo cameraServo_sub;
+  CameraAngle cameraAngle_command;
 
 
 
@@ -52,6 +56,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings'
     joy = new XboxController(0);
+
     InitSubs();
     InitCommands();
     configureButtonBindings();
@@ -62,13 +67,14 @@ public class RobotContainer {
     intake_sub=new Intake();
     belts_sub=new Belts();
     ballGrabberSub=new BallGrabber();
+    cameraServo_sub=new CameraServo();
   }
   public void InitCommands()
   {
     ballGrabberCommand=new BallGrabberCommand(ballGrabberSub);
     beltwgrabber=new toggleBeltAndGrabber(ballGrabberSub, belts_sub);
     intake_ext=new IntakeExtender(intake_sub);
-
+    cameraAngle_command=new CameraAngle(cameraServo_sub);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -94,6 +100,8 @@ public class RobotContainer {
     JoystickButton bB=new JoystickButton(joy, Constants.beltWithGrabber);
     bB.whenPressed(beltwgrabber, false);
 
+    JoystickButton changeCameraAngle=new JoystickButton(joy, Constants.changeCameraAngle);
+    changeCameraAngle.whenPressed(cameraAngle_command, false);
 //    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
 //    bX.whenPressed(ballGrabberCommand.alongWith(parallel), false);
   }
