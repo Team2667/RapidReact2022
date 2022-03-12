@@ -24,6 +24,19 @@ public class BallGrabber extends SubsystemBase {
         ballGrabberMotor.stopMotor();
     }
 
+    public void forward()
+    {
+        setGrabberSpeed(Constants.GrabberSpeed);
+    }
+    public void backward()
+    {
+        setGrabberSpeed(-Constants.GrabberSpeed);
+    }
+    public void off()
+    {
+        stopGrabber();
+    }
+
     public void toggleGrabber()
     {
         CurrentState=!CurrentState;

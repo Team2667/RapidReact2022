@@ -13,21 +13,21 @@ public class BallGrabberCommand extends CommandBase {
         this.setSubsystem("ballGrabberSub");
         this.addRequirements(ballGrabberSub);
     }
-
     @Override
-    public void execute()
+    public void initialize()
     {
-        ballGrabberSub.toggleGrabber();
+        ballGrabberSub.forward();
     }
 
     @Override
     public boolean isFinished()
     {
-        return true;
+        return false;
     }
 
     @Override
     public void end(boolean interrupted)
     {
+        ballGrabberSub.off();
     }
 }

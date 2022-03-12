@@ -4,39 +4,30 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.BallGrabber;
-import frc.robot.subsystems.Belts;
-public class toggleBeltAndGrabber extends CommandBase {
+public class BallGrabberCommandBack extends CommandBase {
     BallGrabber ballGrabberSub;
-    Belts beltSub;
     XboxController joy;
-    public toggleBeltAndGrabber(BallGrabber ballGrabberSub,Belts beltSub)
+    public BallGrabberCommandBack(BallGrabber ballGrabberSub)
     {
         this.ballGrabberSub=ballGrabberSub;
-        this.beltSub=beltSub;
-
         this.setSubsystem("ballGrabberSub");
         this.addRequirements(ballGrabberSub);
-        this.addRequirements(beltSub);
-
     }
-
     @Override
-    public void execute()
+    public void initialize()
     {
-        ballGrabberSub.toggleGrabber();
-        beltSub.toggleBelt();
-        beltSub.mutex=!beltSub.mutex;
-        System.out.println("execute");
+        ballGrabberSub.backward();
     }
 
     @Override
     public boolean isFinished()
     {
-        return true;
+        return false;
     }
 
     @Override
     public void end(boolean interrupted)
     {
+        ballGrabberSub.off();
     }
 }

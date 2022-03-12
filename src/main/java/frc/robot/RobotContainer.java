@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Auto;
 import frc.robot.commands.BallGrabberCommand;
+import frc.robot.commands.BallGrabberCommandBack;
 import frc.robot.commands.CameraAngle;
 import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeExtender;
@@ -24,7 +25,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.LLDriverCamera;
 import frc.robot.commands.LLVisionCamera;
 import frc.robot.commands.MoveBall;
-import frc.robot.commands.toggleBeltAndGrabber;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -45,7 +45,7 @@ public class RobotContainer {
 
   private BallGrabber ballGrabberSub;
   private BallGrabberCommand ballGrabberCommand;
-  private toggleBeltAndGrabber beltwgrabber;
+  private BallGrabberCommandBack ballGrabberCommandBack;
   IntakeExtender intake_ext;
   CameraServo cameraServo_sub;
   CameraAngle cameraAngle_command;
@@ -72,7 +72,7 @@ public class RobotContainer {
   public void InitCommands()
   {
     ballGrabberCommand=new BallGrabberCommand(ballGrabberSub);
-    beltwgrabber=new toggleBeltAndGrabber(ballGrabberSub, belts_sub);
+    ballGrabberCommandBack=new BallGrabberCommandBack(ballGrabberSub);
     intake_ext=new IntakeExtender(intake_sub);
     cameraAngle_command=new CameraAngle(cameraServo_sub);
   }
@@ -96,12 +96,15 @@ public class RobotContainer {
     MoveBall moveball=new MoveBall(joy, belts_sub);
     belts_sub.setDefaultCommand(moveball);
 
-
-    JoystickButton bB=new JoystickButton(joy, Constants.beltWithGrabber);
-    bB.whenPressed(beltwgrabber, false);
-
     JoystickButton changeCameraAngle=new JoystickButton(joy, Constants.changeCameraAngle);
     changeCameraAngle.whenPressed(cameraAngle_command, false);
+
+    JoystickButton intakeForward=new JoystickButton(joy, Constants.intakeForward);
+    intakeForward.whileHeld(ballGrabberCommand);
+
+    JoystickButton intakeBackward=new JoystickButton(joy, Constants.intakeBackward);
+    intakeBackward.whileHeld(ballGrabberCommandBack);
+
 //    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
 //    bX.whenPressed(ballGrabberCommand.alongWith(parallel), false);
   }

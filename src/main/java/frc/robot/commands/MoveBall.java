@@ -25,8 +25,6 @@ public class MoveBall extends CommandBase {
     @Override
     public void execute()
     {
-        if(belts_sub.mutex)
-            return;
         double speed=getTriggerVal();
         belts_sub.setBeltSpeed(speed);
     }

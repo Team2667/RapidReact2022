@@ -36,5 +36,9 @@ public final class Constants {
     public static final int intakeExtender = XboxController.Button.kY.value;
     public static final int beltWithGrabber = XboxController.Button.kRightStick.value;
     public static final int changeCameraAngle = XboxController.Button.kLeftStick.value;
+    public static final int intakeBackward=XboxController.Button.kLeftBumper.value;
+    public static final int intakeForward=XboxController.Button.kRightBumper.value;
+
+
 
 }
