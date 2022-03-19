@@ -9,12 +9,14 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import frc.robot.commands.Auto;
+import frc.robot.commands.AutoEjectBall;
 import frc.robot.commands.BallGrabberCommand;
 import frc.robot.commands.BallGrabberCommandBack;
 import frc.robot.commands.CameraAngle;
 import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeExtender;
 import frc.robot.commands.LLDriverCamera;
+import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.BallGrabber;
 import frc.robot.subsystems.Belts;
 import frc.robot.subsystems.CameraServo;
@@ -25,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.LLDriverCamera;
 import frc.robot.commands.LLVisionCamera;
 import frc.robot.commands.MoveBall;
+import frc.robot.commands.Punchy;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -49,6 +52,10 @@ public class RobotContainer {
   IntakeExtender intake_ext;
   CameraServo cameraServo_sub;
   CameraAngle cameraAngle_command;
+  AutoEjectBall autoEjectBall_command;
+  private Arms arms_sub;
+  private Punchy punchy_up;
+  private Punchy punchy_down;
 
 
 
@@ -68,6 +75,7 @@ public class RobotContainer {
     belts_sub=new Belts();
     ballGrabberSub=new BallGrabber();
     cameraServo_sub=new CameraServo();
+    arms_sub=new Arms();
   }
   public void InitCommands()
   {
@@ -75,6 +83,8 @@ public class RobotContainer {
     ballGrabberCommandBack=new BallGrabberCommandBack(ballGrabberSub);
     intake_ext=new IntakeExtender(intake_sub);
     cameraAngle_command=new CameraAngle(cameraServo_sub);
+    punchy_up=new Punchy(arms_sub, 1);
+    punchy_down=new Punchy(arms_sub, -1);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -105,6 +115,12 @@ public class RobotContainer {
     JoystickButton intakeBackward=new JoystickButton(joy, Constants.intakeBackward);
     intakeBackward.whileHeld(ballGrabberCommandBack);
 
+    JoystickButton armup=new JoystickButton(joy, Constants.armUp);
+    armup.whileHeld(punchy_up);
+
+    JoystickButton armdown=new JoystickButton(joy, Constants.armDown);
+    armdown.whileHeld(punchy_down);
+
 //    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
 //    bX.whenPressed(ballGrabberCommand.alongWith(parallel), false);
   }
@@ -122,6 +138,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous0
-    return new Auto(m_driveTrainSub).withTimeout(Constants.autotime);
+    return new Auto(m_driveTrainSub).withTimeout(1)
+    .andThen(new AutoEjectBall(belts_sub));
   }
 }

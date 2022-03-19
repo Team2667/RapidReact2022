@@ -14,14 +14,18 @@ import edu.wpi.first.wpilibj.XboxController; //for button bindings
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static int BackLeft=2;
-    public static int BackRight=4;
 
     public static int FrontLeft=1;
+    public static int BackLeft=2;
     public static int FrontRight=3;
+    public static int BackRight=4;
+
     public static int beltMotor=5;
     public static final int BallGrabber=6;
+    public static final int left_arm=7;
+    public static final int right_arm=8;
     public static int pcm=11;
+
 
     public static double MaxMotorSpeed=0.65;
     public static final double MaxBeltSpeed=1;
@@ -33,11 +37,12 @@ public final class Constants {
     public static int camServoChannel=9;
 
     /* button bindings */
-    public static final int intakeExtender = XboxController.Button.kY.value;
-    public static final int beltWithGrabber = XboxController.Button.kRightStick.value;
+    public static final int intakeExtender = XboxController.Button.kRightStick.value;
     public static final int changeCameraAngle = XboxController.Button.kLeftStick.value;
     public static final int intakeBackward=XboxController.Button.kLeftBumper.value;
     public static final int intakeForward=XboxController.Button.kRightBumper.value;
+    public static final int armUp=XboxController.Button.kY.value;
+    public static final int armDown=XboxController.Button.kA.value;
 
 
 
