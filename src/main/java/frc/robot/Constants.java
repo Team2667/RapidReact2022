@@ -35,6 +35,10 @@ public final class Constants {
     public static int autotime=1;
 
     public static int camServoChannel=9;
+    public static int ang1 = 100;
+    public static int ang2 = 125;
+    public static int ang3 = 165;
+    public static int ang4 = 0;
 
     /* button bindings */
     public static final int intakeExtender = XboxController.Button.kRightStick.value;
