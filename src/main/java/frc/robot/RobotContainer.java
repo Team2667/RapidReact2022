@@ -12,6 +12,7 @@ import frc.robot.commands.Auto;
 import frc.robot.commands.AutoEjectBall;
 import frc.robot.commands.BallGrabberCommand;
 import frc.robot.commands.BallGrabberCommandBack;
+import frc.robot.commands.BicepExtender;
 import frc.robot.commands.CameraAngle;
 import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeExtender;
@@ -19,6 +20,7 @@ import frc.robot.commands.LLDriverCamera;
 import frc.robot.subsystems.Arms;
 import frc.robot.subsystems.BallGrabber;
 import frc.robot.subsystems.Belts;
+import frc.robot.subsystems.Biceps;
 import frc.robot.subsystems.CameraServo;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Intake;
@@ -56,6 +58,8 @@ public class RobotContainer {
   private Arms arms_sub;
   private Punchy punchy_up;
   private Punchy punchy_down;
+  private Biceps biceps;
+  private BicepExtender bicep_ext;
 
 
 
@@ -76,6 +80,7 @@ public class RobotContainer {
     ballGrabberSub=new BallGrabber();
     cameraServo_sub=new CameraServo();
     arms_sub=new Arms();
+    biceps=new Biceps();
   }
   public void InitCommands()
   {
@@ -85,6 +90,7 @@ public class RobotContainer {
     cameraAngle_command=new CameraAngle(cameraServo_sub);
     punchy_up=new Punchy(arms_sub, 1);
     punchy_down=new Punchy(arms_sub, -1);
+    bicep_ext=new BicepExtender(biceps);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -120,6 +126,9 @@ public class RobotContainer {
 
     JoystickButton armdown=new JoystickButton(joy, Constants.armDown);
     armdown.whileHeld(punchy_down);
+
+    JoystickButton bicepToggle=new JoystickButton(joy,Constants.bicepToggle);
+    bicepToggle.whenPressed(bicep_ext);
 
 //    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
 //    bX.whenPressed(ballGrabberCommand.alongWith(parallel), false);

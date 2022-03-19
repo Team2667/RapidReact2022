@@ -43,6 +43,7 @@ public final class Constants {
     public static final int intakeForward=XboxController.Button.kRightBumper.value;
     public static final int armUp=XboxController.Button.kY.value;
     public static final int armDown=XboxController.Button.kA.value;
+    public static final int bicepToggle=XboxController.Button.kB.value;
 
 
 

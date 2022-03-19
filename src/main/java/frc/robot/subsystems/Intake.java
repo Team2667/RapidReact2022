@@ -9,22 +9,18 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class Intake extends SubsystemBase {
-    Solenoid solLeft;
-    Solenoid solRight;
+    Solenoid sol;
 
     public Intake(){
-        solLeft=new Solenoid(Constants.pcm,PneumaticsModuleType.CTREPCM, 0);
-        solRight=new Solenoid(Constants.pcm,PneumaticsModuleType.CTREPCM, 1);
+        sol=new Solenoid(Constants.pcm,PneumaticsModuleType.CTREPCM, 0);
         }
 
     public void toggle(){
-            boolean oldVal=solRight.get();
-            solRight.set(!oldVal);
-            solLeft.set(!oldVal);
+            boolean oldVal=sol.get();
+            sol.set(!oldVal);
     }
 
     public void close() {
-        solLeft.close();
-        solRight.close();
+        sol.close();
     }
 }
