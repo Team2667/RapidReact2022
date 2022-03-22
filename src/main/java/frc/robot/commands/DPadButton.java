@@ -1,29 +1,29 @@
+package frc.robot.commands;
+
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.CameraServo;
 
-public class DPadButton extends Button { private Joystick joystick; private Direction direction;
+public class DPadButton extends CommandBase { 
+    private XboxController joystick;
+    private CameraServo cameraServo;
+    int prevDir=-1;
 
-    public DPadButton(Joystick joystick, Direction direction) {
+    public DPadButton(XboxController joystick, CameraServo cameraServo) {
         this.joystick = joystick;
-        this.direction = direction;
+        this.cameraServo = cameraServo;
+        this.addRequirements(cameraServo);
+        this.setSubsystem("CameraServo");
     }
-    
+
     @Override
-    public boolean get() {
-        int degree = joystick.getPOV(0);
-        
-        return degree == direction.degree;
+    public void execute() {
+        int dPadDir = joystick.getPOV();
+        if(dPadDir==-1 || prevDir==dPadDir)
+            return;
+        prevDir=dPadDir;
+        cameraServo.setPresetAng(1+(dPadDir/90));
     }
     
-    public enum Direction {
-        Up (0),
-        Down (180),
-        Left (270),
-        Right (90);
-        
-        int degree;
-        Direction(int degree) {
-            this.degree = degree;
-        }
-    }
 }

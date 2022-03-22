@@ -6,7 +6,7 @@ import frc.robot.Constants;
 import javax.sound.sampled.SourceDataLine;
 
 import edu.wpi.first.wpilibj.Servo;
-public class CameraServo  extends SubsystemBase{
+public class CameraServo extends SubsystemBase{
 
     private Servo camserv;
     private int angles[]={Constants.ang1,Constants.ang2,Constants.ang3};

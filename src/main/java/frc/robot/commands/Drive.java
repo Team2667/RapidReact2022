@@ -21,11 +21,11 @@ public class Drive extends CommandBase {
         SmartDashboard.putNumber("x: ",jstick.getLeftY());
         SmartDashboard.putNumber("y: ",jstick.getLeftX());
         SmartDashboard.putNumber("left x: ",jstick.getLeftX());
-        double x=-jstick.getLeftY();
-        double y=jstick.getRightX();
+        double y=-jstick.getRightY();
+        double x=jstick.getRightX();
         double z=jstick.getLeftX();
 
-        driveTrain.DriveCartesian(-x,-y,z);        
+        driveTrain.DriveCartesian(-y,-x,z);        
     }
     public void end(boolean interupted) {
         driveTrain.StopMotor();

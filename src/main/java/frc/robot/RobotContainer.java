@@ -14,6 +14,7 @@ import frc.robot.commands.BallGrabberCommand;
 import frc.robot.commands.BallGrabberCommandBack;
 import frc.robot.commands.BicepExtender;
 import frc.robot.commands.CameraAngle;
+import frc.robot.commands.DPadButton;
 import frc.robot.commands.Drive;
 import frc.robot.commands.IntakeExtender;
 import frc.robot.commands.LLDriverCamera;
@@ -60,7 +61,8 @@ public class RobotContainer {
   private Punchy punchy_down;
   private Biceps biceps;
   private BicepExtender bicep_ext;
-
+  private LLVisionCamera visionMode;
+  private DPadButton dpadHandler;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -91,6 +93,8 @@ public class RobotContainer {
     punchy_up=new Punchy(arms_sub, 1);
     punchy_down=new Punchy(arms_sub, -1);
     bicep_ext=new BicepExtender(biceps);
+    visionMode=new LLVisionCamera(limeLight);
+    dpadHandler=new DPadButton(joy, cameraServo_sub);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -101,7 +105,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     LLDriverCamera drivermode=new LLDriverCamera(limeLight);
-    limeLight.setDefaultCommand(drivermode);
+    limeLight.setDefaultCommand(visionMode);
     
     // JoystickButton bR = new JoystickButton(joy,XboxController.Button.kX.value);
     // bR.whileHeld(new LLVisionCamera(limeLight));
@@ -129,10 +133,7 @@ public class RobotContainer {
 
     JoystickButton bicepToggle=new JoystickButton(joy,Constants.bicepToggle);
     bicepToggle.whenPressed(bicep_ext);
-
-    
-//    JoystickButton bX=new JoystickButton(joy, XboxController.Button.kX.value);
-//    bX.whenPressed(ballGrabberCommand.alongWith(parallel), false);
+    cameraServo_sub.setDefaultCommand(dpadHandler);
   }
   
   private void setupDriveTrain() {

@@ -34,6 +34,7 @@ public final class Constants {
 
     public static int autotime=1;
 
+    /* Camera preset angles */
     public static int camServoChannel=9;
     public static int ang1 = 100;
     public static int ang2 = 125;
