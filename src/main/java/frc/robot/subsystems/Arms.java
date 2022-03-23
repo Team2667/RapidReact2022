@@ -1,5 +1,6 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -22,11 +23,43 @@ public class Arms extends SubsystemBase {
         arml.setInverted(true);
         armr.setInverted(false);
     }
+
+
+    private void down(double pos,CANSparkMax motor) {
+        if(pos > Constants.LowerLimit)
+        {
+            motor.set(-1);
+        }
+        else
+            motor.stopMotor();
+    }
+    private void up(double pos,CANSparkMax motor) {
+        if(pos < Constants.UpperLimit)
+        {
+            motor.set(1);
+        }
+        else
+            motor.stopMotor();
+    }
+
+
+
     public void set(double speed)
     {
-        arml.set(speed);
-        armr.set(speed);
-    }
+        if(speed < 0)
+        {
+            down(encoderr.getPosition(),armr);
+            down(encoderl.getPosition(),arml);
+        }
+        else
+        {
+            up(encoderr.getPosition(),armr);
+            up(encoderl.getPosition(),arml);
+        }
+    } 
+
+
+
     public void stop()
     {
         arml.stopMotor();
@@ -35,6 +68,7 @@ public class Arms extends SubsystemBase {
     @Override
     public void periodic()
     {
-        //System.out.println("left arm pos: "+encoderl.getPosition()+", right arm pos: "+encoderr.getPosition());
+        SmartDashboard.putNumber("left arm pos", encoderl.getPosition());
+        SmartDashboard.putNumber("right arm pos",encoderr.getPosition());
     }
 }

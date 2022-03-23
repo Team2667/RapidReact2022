@@ -49,6 +49,8 @@ public final class Constants {
     public static final int armUp=XboxController.Button.kY.value;
     public static final int armDown=XboxController.Button.kA.value;
     public static final int bicepToggle=XboxController.Button.kB.value;
+    public static final double LowerLimit = -13.5;
+    public static final double UpperLimit = 133;
 
 
 

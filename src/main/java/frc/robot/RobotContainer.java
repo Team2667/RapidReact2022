@@ -148,8 +148,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous0
-    return new Auto(m_driveTrainSub).withTimeout(1)
-    .andThen(new AutoEjectBall(belts_sub));
+    // An ExampleCommand will run in autonomous
+    return new AutoEjectBall(belts_sub).withTimeout(1).andThen(new Auto(m_driveTrainSub));
   }
 }
