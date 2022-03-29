@@ -8,6 +8,7 @@ public class AutoEjectBall extends CommandBase {
     public AutoEjectBall(Belts belt)
     {
         this.belt=belt;
+        this.addRequirements(belt);
     }
     @Override
     public void initialize()
@@ -17,7 +18,8 @@ public class AutoEjectBall extends CommandBase {
     @Override
     public void end(boolean interrupted)
     {
-        belt.stopBelt();
+        if(interrupted)
+            belt.stopBelt();
     }
     
     @Override

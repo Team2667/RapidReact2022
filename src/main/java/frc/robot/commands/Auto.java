@@ -10,11 +10,11 @@ public class Auto extends CommandBase {
     private DriveTrain driveTrain;
     double x,y,z;
     Intake intake_;
-    public Auto(DriveTrain dt) {
+    public Auto(DriveTrain dt,double speed) {
         driveTrain = dt;
         this.setSubsystem("DriveTrain");
         this.addRequirements(dt);
-        x=-0.5;
+        x=-speed;
         y=0;
         z=0;        
     }

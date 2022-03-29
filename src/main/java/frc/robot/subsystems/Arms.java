@@ -58,6 +58,12 @@ public class Arms extends SubsystemBase {
         }
     } 
 
+    public void setpos(double position)
+    {
+        encoderl.setPosition(position);
+        encoderr.setPosition(position);
+    }
+
 
 
     public void stop()

@@ -31,6 +31,7 @@ import frc.robot.commands.LLDriverCamera;
 import frc.robot.commands.LLVisionCamera;
 import frc.robot.commands.MoveBall;
 import frc.robot.commands.Punchy;
+import frc.robot.commands.Up;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
@@ -63,6 +64,7 @@ public class RobotContainer {
   private BicepExtender bicep_ext;
   private LLVisionCamera visionMode;
   private DPadButton dpadHandler;
+  private Up goUp;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -95,6 +97,7 @@ public class RobotContainer {
     bicep_ext=new BicepExtender(biceps);
     visionMode=new LLVisionCamera(limeLight);
     dpadHandler=new DPadButton(joy, cameraServo_sub);
+    goUp=new Up(arms_sub);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -134,6 +137,9 @@ public class RobotContainer {
     JoystickButton bicepToggle=new JoystickButton(joy,Constants.bicepToggle);
     bicepToggle.whenPressed(bicep_ext);
     cameraServo_sub.setDefaultCommand(dpadHandler);
+
+    JoystickButton goup=new JoystickButton(joy, XboxController.Button.kX.value);
+    goup.whenPressed(goUp);
   }
   
   private void setupDriveTrain() {
@@ -149,6 +155,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return new AutoEjectBall(belts_sub).withTimeout(1).andThen(new Auto(m_driveTrainSub));
+    return (new IntakeExtender(intake_sub))
+    .andThen(new AutoEjectBall(belts_sub).withTimeout(1))
+    .andThen(new IntakeExtender(intake_sub))
+    .andThen(new Auto(m_driveTrainSub,0.25).withTimeout(1));
   }
 }
