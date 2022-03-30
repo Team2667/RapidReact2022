@@ -13,7 +13,7 @@ public class Up extends CommandBase{
     @Override
     public void execute()
     {
-        arms_sub.setpos(Constants.UpperLimit);
+        arms_sub.setpos(Constants.UpperLimit/2);
     }
     @Override
     public boolean isFinished()

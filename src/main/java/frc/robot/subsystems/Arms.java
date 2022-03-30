@@ -6,12 +6,20 @@ import frc.robot.Constants;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
+import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 public class Arms extends SubsystemBase {
     private CANSparkMax arml;
     private CANSparkMax armr;
     private RelativeEncoder encoderl;
     private RelativeEncoder encoderr;
+    private SparkMaxPIDController pidLeft;
+    private SparkMaxPIDController pidRight;
+    private double p=0.0005;
+    private double i=0;
+    private double d=0;
+
     public Arms()
     {
         arml=new CANSparkMax(Constants.left_arm,MotorType.kBrushless);
@@ -22,6 +30,19 @@ public class Arms extends SubsystemBase {
 
         arml.setInverted(true);
         armr.setInverted(false);
+        pidLeft=arml.getPIDController();
+        pidRight=armr.getPIDController();
+
+    }
+    private void updatePidVals()
+    {
+        SparkMaxPIDController pidcontrollers[]={pidLeft,pidRight};        
+        for(int i=0;i<2;i++)
+        {
+            pidcontrollers[i].setP(p);
+            pidcontrollers[i].setI(i);
+            pidcontrollers[i].setD(d);
+        }
     }
 
 
@@ -60,8 +81,8 @@ public class Arms extends SubsystemBase {
 
     public void setpos(double position)
     {
-        encoderl.setPosition(position);
-        encoderr.setPosition(position);
+        pidLeft.setReference(position, ControlType.kPosition);
+        pidRight.setReference(position, ControlType.kPosition);
     }
 
 
@@ -76,5 +97,16 @@ public class Arms extends SubsystemBase {
     {
         SmartDashboard.putNumber("left arm pos", encoderl.getPosition());
         SmartDashboard.putNumber("right arm pos",encoderr.getPosition());
+
+        double sp=SmartDashboard.getNumber("p val", p);
+        double si=SmartDashboard.getNumber("i val", i);
+        double sd=SmartDashboard.getNumber("d val", d);
+        if(sp!=p)
+            p=sp;
+        if(si!=i)
+            i=si;
+        if(sd!=d)
+            d=sd;
+        updatePidVals();
     }
 }
