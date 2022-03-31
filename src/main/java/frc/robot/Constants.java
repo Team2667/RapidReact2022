@@ -50,8 +50,6 @@ public final class Constants {
     public static final int armDown=XboxController.Button.kA.value;
     public static final int bicepToggle=XboxController.Button.kB.value;
     public static final double LowerLimit = -13.5;
-    public static final double UpperLimit = 133;
-
-
-
+    public static final double UpperLimitVert = 133;
+    public static final double UpperLimitAngled = 198;
 }

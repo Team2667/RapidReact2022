@@ -97,7 +97,7 @@ public class RobotContainer {
     bicep_ext=new BicepExtender(biceps);
     visionMode=new LLVisionCamera(limeLight);
     dpadHandler=new DPadButton(joy, cameraServo_sub);
-    goUp=new Up(arms_sub);
+    goUp=new Up(arms_sub,biceps);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by

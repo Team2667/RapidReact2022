@@ -16,7 +16,7 @@ public class Arms extends SubsystemBase {
     private RelativeEncoder encoderr;
     private SparkMaxPIDController pidLeft;
     private SparkMaxPIDController pidRight;
-    private double p=0.0005;
+    private double p=0.08;
     private double i=0;
     private double d=0;
 
@@ -30,12 +30,15 @@ public class Arms extends SubsystemBase {
 
         arml.setInverted(true);
         armr.setInverted(false);
+
         pidLeft=arml.getPIDController();
         pidRight=armr.getPIDController();
 
     }
+
     private void updatePidVals()
     {
+        /*
         SparkMaxPIDController pidcontrollers[]={pidLeft,pidRight};        
         for(int i=0;i<2;i++)
         {
@@ -43,6 +46,16 @@ public class Arms extends SubsystemBase {
             pidcontrollers[i].setI(i);
             pidcontrollers[i].setD(d);
         }
+        */
+        pidLeft.setP(p);
+        pidRight.setP(p);
+
+        pidLeft.setI(i);
+        pidRight.setI(i);
+
+        pidLeft.setD(d);
+        pidRight.setD(d);
+
     }
 
 
@@ -55,7 +68,7 @@ public class Arms extends SubsystemBase {
             motor.stopMotor();
     }
     private void up(double pos,CANSparkMax motor) {
-        if(pos < Constants.UpperLimit)
+        if(pos < Constants.UpperLimitAngled)
         {
             motor.set(1);
         }
@@ -81,6 +94,7 @@ public class Arms extends SubsystemBase {
 
     public void setpos(double position)
     {
+        updatePidVals();
         pidLeft.setReference(position, ControlType.kPosition);
         pidRight.setReference(position, ControlType.kPosition);
     }
@@ -101,12 +115,18 @@ public class Arms extends SubsystemBase {
         double sp=SmartDashboard.getNumber("p val", p);
         double si=SmartDashboard.getNumber("i val", i);
         double sd=SmartDashboard.getNumber("d val", d);
+
+
         if(sp!=p)
             p=sp;
         if(si!=i)
             i=si;
         if(sd!=d)
             d=sd;
+
+        SmartDashboard.putNumber("p val", p);
+        SmartDashboard.putNumber("i val", i);
+        SmartDashboard.putNumber("d val", d);
         updatePidVals();
     }
 }

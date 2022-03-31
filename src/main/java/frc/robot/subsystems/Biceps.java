@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 public class Biceps extends SubsystemBase {
     Solenoid bicepLeft;
     Solenoid bicepRight;
+    public boolean out=false;
 
     public Biceps(){
         bicepLeft=new Solenoid(Constants.pcm,PneumaticsModuleType.CTREPCM, 2);
@@ -18,9 +19,9 @@ public class Biceps extends SubsystemBase {
         }
 
     public void toggle(){
-            boolean oldVal=bicepRight.get();
-            bicepRight.set(!oldVal);
-            bicepLeft.set(!oldVal);
+            out=!out;
+            bicepRight.set(out);
+            bicepLeft.set(out);
     }
 
     public void close() {
