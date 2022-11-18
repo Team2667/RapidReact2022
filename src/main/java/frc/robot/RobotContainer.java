@@ -31,6 +31,7 @@ import frc.robot.commands.LLDriverCamera;
 import frc.robot.commands.LLVisionCamera;
 import frc.robot.commands.MoveBall;
 import frc.robot.commands.Punchy;
+import frc.robot.commands.SetFlywheelSpeed;
 import frc.robot.commands.Up;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -65,6 +66,8 @@ public class RobotContainer {
   private LLVisionCamera visionMode;
   private DPadButton dpadHandler;
   private Up goUp;
+  private SetFlywheelSpeed fwPreset0;
+  private SetFlywheelSpeed fwPreset1;
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -98,6 +101,9 @@ public class RobotContainer {
     visionMode=new LLVisionCamera(limeLight);
     dpadHandler=new DPadButton(joy, cameraServo_sub);
     goUp=new Up(arms_sub,biceps);
+
+    fwPreset0=new SetFlywheelSpeed(belts_sub, 0);
+    fwPreset1=new SetFlywheelSpeed(belts_sub, 1);
   }
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -129,7 +135,7 @@ public class RobotContainer {
     intakeBackward.whileHeld(ballGrabberCommandBack);
 
     JoystickButton armup=new JoystickButton(joy, Constants.armUp);
-    armup.whileHeld(punchy_up);
+    armup.whenPressed(goUp);
 
     JoystickButton armdown=new JoystickButton(joy, Constants.armDown);
     armdown.whileHeld(punchy_down);
@@ -140,6 +146,12 @@ public class RobotContainer {
 
     JoystickButton goup=new JoystickButton(joy, XboxController.Button.kX.value);
     goup.whenPressed(goUp);
+
+    JoystickButton preset0=new JoystickButton(joy, Constants.flywheelPreset0);
+    preset0.whenPressed(fwPreset0);
+
+    JoystickButton preset1=new JoystickButton(joy, Constants.flywheelPreset1);
+    preset1.whenPressed(fwPreset1);
   }
   
   private void setupDriveTrain() {
@@ -155,9 +167,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return (new IntakeExtender(intake_sub))
-    .andThen(new AutoEjectBall(belts_sub).withTimeout(1))
+    return (new AutoEjectBall(belts_sub).withTimeout(1))
     .andThen(new IntakeExtender(intake_sub))
-    .andThen(new Auto(m_driveTrainSub,0.25).withTimeout(1));
+    .andThen(new Auto(m_driveTrainSub,-0.25).withTimeout(2));
   }
 }

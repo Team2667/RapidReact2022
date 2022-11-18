@@ -7,21 +7,25 @@ import frc.robot.Constants;
 
 public class BallGrabber extends SubsystemBase {
     public CANSparkMax ballGrabberMotor;
+    public CANSparkMax retainerMotor;
     public boolean CurrentState=false;
 
     public BallGrabber()
     {
         ballGrabberMotor=new CANSparkMax(Constants.BallGrabber,MotorType.kBrushless);
+        retainerMotor=new CANSparkMax(Constants.retainer,MotorType.kBrushless);
     }
     
     public void setGrabberSpeed(double speed)
     {
         ballGrabberMotor.set(speed);
+        retainerMotor.set(speed);
     }
 
     public void stopGrabber()
     {
         ballGrabberMotor.stopMotor();
+        retainerMotor.stopMotor();
     }
 
     public void forward()

@@ -15,15 +15,16 @@ import edu.wpi.first.wpilibj.XboxController; //for button bindings
  */
 public final class Constants {
 
-    public static int FrontLeft=1;
-    public static int BackLeft=2;
-    public static int FrontRight=3;
-    public static int BackRight=4;
-
-    public static int beltMotor=5;
+    public static final int FrontLeft=1;
+    public static final int BackLeft=2;
+    public static final int FrontRight=3;
+    public static final int BackRight=4;
+    public static final int beltMotor=5;
     public static final int BallGrabber=6;
     public static final int left_arm=7;
     public static final int right_arm=8;
+    public static final int flyWheelMotor=10; 
+    public static final int retainer=11;
     public static int pcm=11;
 
 
@@ -40,6 +41,8 @@ public final class Constants {
     public static int ang2 = 125;
     public static int ang3 = 165;
     public static int ang4 = 0;
+    public static int flywheelPreset0=XboxController.Button.kBack.value;
+    public static int flywheelPreset1=XboxController.Button.kStart.value;
 
     /* button bindings */
     public static final int intakeExtender = XboxController.Button.kRightStick.value;
@@ -49,7 +52,14 @@ public final class Constants {
     public static final int armUp=XboxController.Button.kY.value;
     public static final int armDown=XboxController.Button.kA.value;
     public static final int bicepToggle=XboxController.Button.kB.value;
+
     public static final double LowerLimit = -13.5;
     public static final double UpperLimitVert = 133;
-    public static final double UpperLimitAngled = 198;
+    public static final double UpperLimitAngled = 205;
+
+    public static final double flywheelRpms[]={8000,10000};
+    public static final double flywheelPs[]={0.00009,0.00009};
+    public static final double flywheelIs[]={0.0000005,0.0000001};
+    public static final double flywheelDs[]={0,0};
+
 }
